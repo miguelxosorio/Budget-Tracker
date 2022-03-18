@@ -44,4 +44,16 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="js/index.js"></script>
 </body>
+<script>
+  // service worker registration
+  // tells the browser that we're using a service worker and explains where to find the code
+  (function() {
+    // checks if service worker exists on the global navigator object
+    if("serviceWorker" in navigator) {
+      navigator.serviceWorker.register('./service-worker.js')
+      .then(() => console.log("Service Worker registration successful."))
+      .catch(err => console.log("Service Worker registration failed: ", err));
+    }
+  })(); // IIFE immediately invoked function expression
+</script>
 </html>
