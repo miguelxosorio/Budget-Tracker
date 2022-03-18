@@ -2,12 +2,10 @@
   "name": "budget-tracker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "webpack-dev-server",
-    "webpack": "webpack --watch",
-    "build": "webpack"
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -23,15 +21,7 @@
   "dependencies": {
     "compression": "^1.7.4",
     "express": "^4.17.3",
-    "mongodb": "^4.4.1",
     "mongoose": "^6.2.7",
-    "morgan": "^1.10.0",
-    "path": "^0.12.7"
-  },
-  "devDependencies": {
-    "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.7.4",
-    "webpack-pwa-manifest": "^4.3.0"
+    "morgan": "^1.10.0"
   }
 }
