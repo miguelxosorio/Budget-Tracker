@@ -2,7 +2,7 @@
 let db;
 
 // establish a connection to IndexedDB database
-const requires = indexedDB.open('budget', 1);
+const request = indexedDB.open('budget', 1);
 
 // event will emit if the database version changes
 request.onupgradeneeded = function(event) {
@@ -36,4 +36,9 @@ function saveRecord(record) {
     const budgetObjectStore = transaction.objectStore('new_budget');
     // add record to your storr with add method
     budgetObjectStore.add(record);
+}
+
+// open a new transaction
+function uploadBudget() {
+
 }
