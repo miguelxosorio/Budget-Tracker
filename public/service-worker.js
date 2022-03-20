@@ -54,7 +54,17 @@ self.addEventListener('activate', function(e) {
 })
 
 // offline functionality - telling the browser to check the cache when there's no network connection
-self.addEventListener('fetch', function(e) {
+self.addEventListener('fetch', function(e) {    //  listen for the fetch event, log the URL of the requested resource
     console.log('fetch request : ' + e.request.url)
-    e.respondWith()
+    e.respondWith(
+        caches.match(e.request).then(function(request) {     // we use .match() to determine if the resource already exists in caches. If it does, we'll log the URL to the console with a message and then return the cached resource
+            if(request) {   // if cache is available respond with cache 
+                console.log('responding with cache : ' + e.request.url)
+                return request
+            } else {    // if no cache, try fetching request
+                console.log('file is not cached, fetching : ' + e.request.url)
+                return fetch(e.request)
+            }
+        })
+    )
 })
