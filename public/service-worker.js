@@ -35,10 +35,20 @@ self.addEventListener('install', function(e) {
 // activation step - clears out any old data from the cache and tell the service worker how to manage caches
 self.addEventListener('activate', function(e) {
     e.waitUntil(
-        caches.keys().then(function(keyList) {
-            let cacheKeepList = keyList.filter(function(key) {
-                return key.indexOf(APP_PREFIX);
-            })
+        caches.keys().then(function(keyList) { // .keys() returns an array of all cache names, which we're calling keyList
+            let cacheKeepList = keyList.filter(function(key) { // keyList is a param that contains all cache names
+                return key.indexOf(APP_PREFIX); // we may host many sites from the same URL, should filter out caches that have the app prefix
+            })                                  // capture the ones that have that prefix, stored in APP_PREFIX and save to an anrray called cacheKeepList using .filter() method
+            cacheKeepList.push(CACHE_NAME)      // add the current cache to the keeplist in the activate event listener
+            
+            return Promise.all(
+                keyList.map(function(key, i) {  // key and index
+                    if(cacheKeepList.indexOf(key) === -1 ) { // return a value of - 1 if item is not found in keepList
+                        console.log('deleting cache : ' + keyList[i]);
+                        return caches.delete(keyList[i]) // if key isn't found in keeplist, delete in the cache
+                    }
+                })
+            )
         })
     )
 })
