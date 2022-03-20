@@ -48,4 +48,21 @@ function uploadBudget() {
 
     // get all records from the object store and set to a variable
     const getAll = budgetObjectStore.getAll();
+
+    // upon a successful .getAll() execution
+    getAll.onsuccess = function() {
+        // if there's data in indexedDb's store, send it to the api server
+        if(getAll.result.length > 0) {
+            fetch('/api/transaction', {
+                method: 'POST',
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: 'application/json, text/plain, */*',
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(serverResponse => {})
+        }
+    }
 }
