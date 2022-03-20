@@ -52,3 +52,9 @@ self.addEventListener('activate', function(e) {
         })
     )
 })
+
+// offline functionality - telling the browser to check the cache when there's no network connection
+self.addEventListener('fetch', function(e) {
+    console.log('fetch request : ' + e.request.url)
+    e.respondWith()
+})
