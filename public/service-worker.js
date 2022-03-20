@@ -31,3 +31,14 @@ self.addEventListener('install', function(e) {
         })
     )
 })
+
+// activation step - clears out any old data from the cache and tell the service worker how to manage caches
+self.addEventListener('activate', function(e) {
+    e.waitUntil(
+        caches.keys().then(function(keyList) {
+            let cacheKeepList = keyList.filter(function(key) {
+                return key.indexOf(APP_PREFIX);
+            })
+        })
+    )
+})
