@@ -20,6 +20,7 @@ request.onsuccess = function(event) {
     // check if app is online, if yes, run function to send all local db data to api
     if(navigator.onLine) {
         // add function here
+        uploadBudget();
     }
 };
 
@@ -85,3 +86,6 @@ function uploadBudget() {
         // if there's data to send, we send that array of data we just retrieved to the server at the POST /api/transaction endpoint
     };
 };
+
+// listen for the app to restore connection, if online, invoke uploadBudget()
+window.addEventListener('online', uploadBudget);
