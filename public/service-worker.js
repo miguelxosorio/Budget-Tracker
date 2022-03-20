@@ -20,6 +20,14 @@ const APP_PREFIX = 'BudgetTracker-'; // app name
 const VERSION = 'version_01'; // version iteration
 const CACHE_NAME = APP_PREFIX + VERSION;
 
+// sw's run before the window object has been created - self instead of window.addEventListener
+// the context of self referes to the service worker object
 self.addEventListener('install', function(e) {
-    
+    e.waitUntil(    // waitUntil() - tell the browser to wait until the work is complete before terminating the service worker
+                    // This ensures that the service worker doesn't move on from the installing phase until it's finished executing all of its code.
+        caches.open(CACHE_NAME).then(function(cache) {  // open() - to find the specific cache by name
+            console.log('installing cache : ' + CACHE_NAME)
+            return cache.addAll(FILES_TO_CACHE)         // then add every file in the FILES_TO_CACHE array to the cache.
+        })
+    )
 })
