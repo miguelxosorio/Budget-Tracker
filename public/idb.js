@@ -62,7 +62,26 @@ function uploadBudget() {
                 }
             })
             .then(response => response.json())
-            .then(serverResponse => {})
+            .then(serverResponse => {
+                if(serverResponse.message) {
+                    throw new Error(serverResponse);
+                }
+                // open one or more transaction
+                const transaction = db.transaction(['new_budget'], 'readwrite');
+                // access the new_budget object store
+                const budgetObjectStore = transaction.objectStore('new_budget');
+                // clear all items in the store
+                budgetObjectStore.clear();
+
+                // send alert that transaction has completed
+                alert('Transactions have been processed!');
+            })
+            .catch(err => {
+                console.log(err);
+            });
         }
-    }
-}
+        // getAll.onsuccess event will execute after the .getAll() method completes successfully
+        // at that point, the getAll variable we created above, it will have a .result property that's an array of all the data we retrieved from the new_budget object store.
+        // if there's data to send, we send that array of data we just retrieved to the server at the POST /api/transaction endpoint
+    };
+};
