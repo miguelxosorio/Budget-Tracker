@@ -24,7 +24,7 @@ It's an app that calculates and tracks your budget.
 
 Open the app in your browser (preferably Chrome), click the `➕` icon or the `🖥️` icon with the downward arrow in the address bar, then click Install.
 
-![Installation Screenshot]()
+![Installation Screenshot](https://github.com/miguelxosorio/Budget-Tracker/blob/main/assets/images/Budget-Tracker.png)
 
 ## Framework
 
